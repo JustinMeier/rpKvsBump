@@ -35,24 +35,45 @@
         /* <![CDATA[ */
 
 $(document).ready(function() {
+$("#hide").hide();
+$("#error").show();
+
+$('#server').on('input',function(e){
+ var server = $("#server").val();
+ server = server + "";
+});
 
 
 if('WebSocket' in window){
-  connect('ws://127.0.0.1:32160');
+var server = $("#server").val();
+  connect('ws://' + server);
 }
  
 function connect(host) {
   var ws = new WebSocket(host);
+  server = $("#server").val();
+  try {
   ws.onopen = function () {
+  $("#hide").show();
+  $("#error").hide();
   };
+  
+ }
+ 
+ catch (e) {
+        console.error('Sorry, the web socket at "%s" is un-available', url);
+		}
  
   ws.onmessage = function (evt) {  
     alert('reveived data:'+evt.data);
   };
  
   ws.onclose = function () {
+  $("#hide").hide();
+  $("#error").show();
   
-  connect('ws://127.0.0.1:32160');
+  console.log("trying again!")
+  connect('ws://' + server);
   };
   
   $("#btn1").click(function(){
@@ -124,6 +145,9 @@ function connect(host) {
         ws.send("kvs,sum")
         });
 		
+		$("#config").click(function(){
+        
+        });
 		
 		};
 		
@@ -157,6 +181,7 @@ function connect(host) {
 
 </head>
 <body>
+<div id="hide">
 <div class="container-fixed">
 	<div class="row row-xs-2 no-gutter">
     <div class="col col-xs-2"><button type="button" class="btn btn-primary btn-block btn-lg" id="btn1" style="height:100%; width:100%;">1</button></div>
@@ -176,7 +201,9 @@ function connect(host) {
   </div>
 
 <div class="row row-xs-3">
-	<div class="col col-xs-12" style="background: #000">RPOWER Logo.... Did you know... Empty space, fill it with something.</div>
+	<div class="col col-xs-5" style="background: #000" id="config"></div>
+	<div class="col col-xs-2" style="background: #000" id="config"></div>
+	<div class="col col-xs-5" style="background: #000" id="config"></div>
 	</div>
 	<div class="row row-xs-5 no-gutter">
     <div class="col col-xs-3"><button type="button" class="btn btn-success btn-block btn-lg" id="btnBump" style="height:100%; width:100%;">BUMP</button></div>
@@ -186,6 +213,14 @@ function connect(host) {
 <!--    <div class="col col-xs-3"><button type="button" class="btn btn-danger btn-block btn-lg" id="btnPage" style="height:100%; width:100%;">PAGE</button></div> -->
 	
   </div>
+</div>
+</div>
+
+<div id="error">
+<div>
+		ERROR CONNECTING.. IS THE SERVER RUNNNING??
+		<div class="col col-xs-2" style="background: #fff" id="config">Server: <input id="server" value="192.168.128.50:32160">Ex: 192.168.128.50:32160</input></div>
+</div>
 </div>
 </body></html>
 
