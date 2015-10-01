@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html><head>
+<title>KVS Bumpbar</title>
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/bootstrap-vertical-grid.css" />
+
+<style>
+.container-fixed { border: 1px solid #000; }
+.col {
+  border: 0px solid #000;
+  text-align: center;
+}
+.row.no-gutter div[class*="col-"] {
+  background-color:#000;
+}
+
+    
+.row.no-gutter [class*='col-']:not(:first-child),.row.no-gutter [class*='col-']:not(:last-child) {
+  padding-right:0;
+  padding-left:0;
+}
+
+.btn { border-radius: 24px;
+    border: 2px solid #005f7d;
+    color: #000;
+}
+
+
+</style>
+
+<script src="jquery/js/jquery-1.9.0.js"></script>
+
+
+<script type="text/javascript">
+        /* <![CDATA[ */
+
+$(document).ready(function() {
+
+
+if('WebSocket' in window){
+  connect('ws://127.0.0.1:32160');
+}
+ 
+function connect(host) {
+  var ws = new WebSocket(host);
+  ws.onopen = function () {
+  };
+ 
+  ws.onmessage = function (evt) {  
+    alert('reveived data:'+evt.data);
+  };
+ 
+  ws.onclose = function () {
+  
+  connect('ws://127.0.0.1:32160');
+  };
+  
+  $("#btn1").click(function(){
+       ws.send("kvs,1")
+        });  
+  
+		$("#btn2").click(function(){
+        ws.send("kvs,2")
+        });
+		
+		$("#btn3").click(function(){
+        ws.send("kvs,3")
+        });
+		
+		$("#btn4").click(function(){
+        ws.send("kvs,4")
+        });
+		
+		$("#btn5").click(function(){
+        ws.send("kvs,5")
+        });
+		
+		$("#btn6").click(function(){
+        ws.send("kvs,6")
+        });
+		
+		$("#btn7").click(function(){
+        ws.send("kvs,7")
+        });
+		
+		$("#btn8").click(function(){
+        ws.send("kvs,8")
+        });
+		
+		$("#btn9").click(function(){
+        ws.send("kvs,9")
+        });
+		
+		$("#btn0").click(function(){
+        ws.send("kvs,10")
+        });
+		
+		$("#btnBump").click(function(){
+        ws.send("kvs,bump")
+        });
+		
+		$("#btnRecall").click(function(){
+        ws.send("kvs,recall")
+        });
+		
+		$("#btnSum").click(function(){
+        ws.send("kvs,sum")
+        });
+		
+		$("#btnPage").click(function(){
+        ws.send("kvs,page")
+        });
+		
+		
+		$("#btnUp").click(function(){
+        ws.send("kvs,up")
+        });
+		
+		$("#btnDown").click(function(){
+        ws.send("kvs,down")
+        });
+		
+		$("#btnDone").click(function(){
+        ws.send("kvs,sum")
+        });
+		
+		
+		};
+		
+});
+        /* ]]> */
+</script>
+
+<style>
+.container-fixed { border: 1px solid #000; }
+.col {
+  border: 0px solid #000;
+  text-align: center;
+}
+.row.no-gutter div[class*="col-"] {
+  background-color:#000;
+}
+
+    
+.row.no-gutter [class*='col-']:not(:first-child),.row.no-gutter [class*='col-']:not(:last-child) {
+  padding-right:0;
+  padding-left:0;
+}
+
+.btn { border-radius: 24px;
+    border: 2px solid #005f7d;
+    color: #000;
+}
+</style>
+
+
+
+</head>
+<body>
+<div class="container-fixed">
+	<div class="row row-xs-2 no-gutter">
+    <div class="col col-xs-2"><button type="button" class="btn btn-primary btn-block btn-lg" id="btn1" style="height:100%; width:100%;">1</button></div>
+    <div class="col col-xs-2"><button type="button" class="btn btn-primary btn-block btn-lg" id="btn2" style="height:100%; width:100%;">2</button></div>
+    <div class="col col-xs-2"><button type="button" class="btn btn-primary btn-block btn-lg" id="btn3" style="height:100%; width:100%;">3</button></div>
+    <div class="col col-xs-2"><button type="button" class="btn btn-primary btn-block btn-lg" id="btn4" style="height:100%; width:100%;">4</button></div>
+    <div class="col col-xs-2"><button type="button" class="btn btn-primary btn-block btn-lg" id="btn5" style="height:100%; width:100%;">5</button></div>
+	<div class="col col-xs-2"><button type="button" class="btn btn-success btn-block btn-lg" id="btnUp" style="height:100%; width:100%;">LEFT</button></div>
+</div>
+<div class="row row-xs-2 no-gutter">
+    <div class="col col-xs-2"><button type="button" class="btn btn-primary btn-block btn-lg" id="btn6" style="height:100%; width:100%;">6</button></div>
+    <div class="col col-xs-2"><button type="button" class="btn btn-primary btn-block btn-lg" id="btn7" style="height:100%; width:100%;">7</button></div>
+    <div class="col col-xs-2"><button type="button" class="btn btn-primary btn-block btn-lg" id="btn8" style="height:100%; width:100%;">8</button></div>
+    <div class="col col-xs-2"><button type="button" class="btn btn-primary btn-block btn-lg" id="btn9" style="height:100%; width:100%;">9</button></div>
+    <div class="col col-xs-2"><button type="button" class="btn btn-primary btn-block btn-lg" id="btn0" style="height:100%; width:100%;">0</button></div>
+	<div class="col col-xs-2"><button type="button" class="btn btn-warning btn-block btn-lg" id="btnDown" style="height:100%; width:100%;">RIGHT</button></div>
+  </div>
+
+<div class="row row-xs-3">
+	<div class="col col-xs-12" style="background: #000">RPOWER Logo.... Did you know... Empty space, fill it with something.</div>
+	</div>
+	<div class="row row-xs-5 no-gutter">
+    <div class="col col-xs-3"><button type="button" class="btn btn-success btn-block btn-lg" id="btnBump" style="height:100%; width:100%;">BUMP</button></div>
+    <div class="col col-xs-3"><button type="button" class="btn btn-danger btn-block btn-lg" id="btnRecall" style="height:100%; width:100%;">RECALL</button></div>
+    <div class="col col-xs-3" id="divSum"><button type="button" class="btn btn-warning btn-block btn-lg" id="btnSum" style="height:100%; width:100%;">SUM</button></div>
+	<div class="col col-xs-3" id="divDone"><button type="button" class="btn btn-primary btn-block btn-lg" id="btnDone" style="height:100%; width:100%;">DONE</button></div>
+<!--    <div class="col col-xs-3"><button type="button" class="btn btn-danger btn-block btn-lg" id="btnPage" style="height:100%; width:100%;">PAGE</button></div> -->
+	
+  </div>
+</div>
+</body></html>
+
+
+
+
+
