@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html><head>
 <title>KVS Bumpbar</title>
+ <script src="jquery/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="jquery/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="css/bootstrap.min.css" />
 <link rel="stylesheet" href="css/bootstrap-vertical-grid.css" />
 
@@ -28,30 +30,36 @@
 
 </style>
 
-<script src="jquery/js/jquery-1.9.0.js"></script>
-
-
 <script type="text/javascript">
         /* <![CDATA[ */
 
 $(document).ready(function() {
+
+var serverIp = $('#serverIp').val();
+var serverPort = $("#serverPort").val();
+
 $("#hide").hide();
 $("#error").show();
 
-$('#server').on('input',function(e){
- var server = $("#server").val();
- server = server + "";
-});
+$('#settings').on('shown.bs.modal', function () {
+  $('#settings').focus()
+})
+
+$("#saveSettings").click(function(){
+        $("#settings").modal('hide');
+		serverIp = $("#serverIp").val();
+		serverPort = $("#serverPort").val();
+		connect('ws://' + serverIp + ':' + serverPort);
+        });
 
 
 if('WebSocket' in window){
-var server = $("#server").val();
-  connect('ws://' + server);
+  connect('ws://' + serverIp + ':' + serverPort);
 }
  
 function connect(host) {
   var ws = new WebSocket(host);
-  server = $("#server").val();
+  
   try {
   ws.onopen = function () {
   $("#hide").show();
@@ -73,7 +81,7 @@ function connect(host) {
   $("#error").show();
   
   console.log("trying again!")
-  connect('ws://' + server);
+  connect('ws://' + serverIp + ':' + serverPort);
   };
   
   $("#btn1").click(function(){
@@ -145,9 +153,6 @@ function connect(host) {
         ws.send("kvs,sum")
         });
 		
-		$("#config").click(function(){
-        
-        });
 		
 		};
 		
@@ -181,6 +186,7 @@ function connect(host) {
 
 </head>
 <body>
+<body style="background-color:lightgrey">
 <div id="hide">
 <div class="container-fixed">
 	<div class="row row-xs-2 no-gutter">
@@ -201,9 +207,7 @@ function connect(host) {
   </div>
 
 <div class="row row-xs-3">
-	<div class="col col-xs-5" style="background: #000" id="config"></div>
-	<div class="col col-xs-2" style="background: #000" id="config"></div>
-	<div class="col col-xs-5" style="background: #000" id="config"></div>
+	<div class="col col-xs-12" style="background: #000">RPOWER Logo.... Did you know... Empty space, fill it with something.</div>
 	</div>
 	<div class="row row-xs-5 no-gutter">
     <div class="col col-xs-3"><button type="button" class="btn btn-success btn-block btn-lg" id="btnBump" style="height:100%; width:100%;">BUMP</button></div>
@@ -217,9 +221,40 @@ function connect(host) {
 </div>
 
 <div id="error">
-<div>
-		ERROR CONNECTING.. IS THE SERVER RUNNNING??
-		<div class="col col-xs-2" style="background: #fff" id="config">Server: <input id="server" value="192.168.128.50:32160">Ex: 192.168.128.50:32160</input></div>
+<div class="col col-xs-12">
+We are having trouble conntecting to the server.
+Please make sure the client program is running on the KVS computer.<br><br><br><br><br>
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#settings">
+  Settings
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="settings" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Configuration Options</h4>
+      </div>
+      <div class="modal-body">
+	  
+	  <div class="row row-xs-2 no-gutter">
+	  <div class="col col-xs-3" style="background: #fff"><input id="serverIp" type="text" value="192.168.128.50">Server Address / IP</input></div>
+	  </div>
+	  <br>
+	  <div class="row row-xs-2 no-gutter">
+	  <div class="col col-xs-3" style="background: #fff"><input id="serverPort" type="text" value="32160">Server Port</input></div>
+	  </div>
+	  
+      </div>
+      
+	  <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="saveSettings">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 </div>
 </body></html>
