@@ -35,22 +35,57 @@
 
 $(document).ready(function() {
 
-var serverIp = $('#serverIp').val();
-var serverPort = $("#serverPort").val();
+////// Web Storage //////
+
+		if(localStorage.getItem("serverIp") == "") {
+		localStorage.setItem("serverIp", '192.168.128.50');
+		localStorage.setItem("serverPort", '32160');
+		$('#serverIp').val('192.168.128.50');
+		$("#serverPort").val('32160');
+		}
+		else {
+		var serverIp = localStorage.getItem("serverIp");
+		var serverPort = localStorage.getItem("serverPort");
+		$('#serverIp').val(serverIp);
+		$("#serverPort").val(serverPort);
+		}
+		
+//////////////////////////////////
+
+
+////// Populate the settings box //////
+
+serverIp = $('#serverIp').val();
+serverPort = $("#serverPort").val();
+
+//////////////////////////////////////
+
+
+////// Hide the bump bar and show error by default //////
 
 $("#hide").hide();
 $("#error").show();
+
+////////////////////////////////////////////////////////
+
 
 $('#settings').on('shown.bs.modal', function () {
   $('#settings').focus()
 })
 
+
+////// Save Settings Button //////
+
 $("#saveSettings").click(function(){
         $("#settings").modal('hide');
 		serverIp = $("#serverIp").val();
 		serverPort = $("#serverPort").val();
+		localStorage.setItem("serverIp", serverIp);
+		localStorage.setItem("serverPort", serverPort);
 		connect('ws://' + serverIp + ':' + serverPort);
         });
+		
+//////////////////////////////////
 
 
 if('WebSocket' in window){
@@ -221,9 +256,9 @@ function connect(host) {
 </div>
 
 <div id="error">
-<div class="col col-xs-12">
+<div class="col col-xs-12"><strong>
 We are having trouble conntecting to the server.
-Please make sure the client program is running on the KVS computer.<br><br><br><br><br>
+Please make sure the client program is running on the KVS computer.</strong><br><br><br><br><br>
 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#settings">
   Settings
 </button>
@@ -234,16 +269,16 @@ Please make sure the client program is running on the KVS computer.<br><br><br><
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Configuration Options</h4>
+        <h4 class="modal-title" id="myModalLabel"><strong>Configuration Options</strong></h4>
       </div>
       <div class="modal-body">
 	  
 	  <div class="row row-xs-2 no-gutter">
-	  <div class="col col-xs-3" style="background: #fff"><input id="serverIp" type="text" value="192.168.128.50">Server Address / IP</input></div>
+	  <div class="col col-xs-3" style="background: #fff"><input id="serverIp" type="text"><strong>Server Address</strong></input></div>
 	  </div>
 	  <br>
 	  <div class="row row-xs-2 no-gutter">
-	  <div class="col col-xs-3" style="background: #fff"><input id="serverPort" type="text" value="32160">Server Port</input></div>
+	  <div class="col col-xs-3" style="background: #fff"><input id="serverPort" type="text"><strong>Server Port</strong></input></div>
 	  </div>
 	  
       </div>
