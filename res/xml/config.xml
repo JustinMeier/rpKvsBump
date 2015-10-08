@@ -7,7 +7,7 @@
 
     <!-- versionCode is optional and Android only -->
 
-    <name>Rkvs</name>
+    <name>RPOWER Bump Bar</name>
 
     <description>
         RPOWER KVS Bump Bar App
@@ -25,6 +25,7 @@
 	<preference name="orientation" value="landscape" />
 
 	<preference name="permissions" value="none" />
+	
 	
 </widget>
 
