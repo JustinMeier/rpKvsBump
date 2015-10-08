@@ -18,3 +18,8 @@
     margin: 0 auto;
     pointer-events:all;
 }
+
+.img {
+    height: auto;
+    max-width: 100%;
+}
