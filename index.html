@@ -16,7 +16,7 @@
   background-color:#000;
 }
 
-    
+
 .row.no-gutter [class*='col-']:not(:first-child),.row.no-gutter [class*='col-']:not(:last-child) {
   padding-right:0;
   padding-left:0;
@@ -34,36 +34,32 @@
 $(document).ready(function() {
 
 ////// Web Storage //////
-
-		if(localStorage.getItem("serverIp") == "") {
-		localStorage.setItem("serverIp", '192.168.128.50');
-		localStorage.setItem("serverPort", '32160');
-		$('#serverIp').val('192.168.128.50');
-		$("#serverPort").val('32160');
+		if (localStorage.getItem("serverIp") == "")
+      {
+         localStorage.setItem("serverIp", '192.168.128.50');
+         localStorage.setItem("serverPort", '32160');
+         $('#serverIp').val('192.168.128.50');
+         $("#serverPort").val('32160');
 		}
-		else {
-		var serverIp = localStorage.getItem("serverIp");
-		var serverPort = localStorage.getItem("serverPort");
-		$('#serverIp').val(serverIp);
-		$("#serverPort").val(serverPort);
+		else
+      {
+         var serverIp = localStorage.getItem("serverIp");
+         var serverPort = localStorage.getItem("serverPort");
+         $('#serverIp').val(serverIp);
+         $("#serverPort").val(serverPort);
 		}
-		
 //////////////////////////////////
 
 
 ////// Populate the settings box //////
-
 serverIp = $('#serverIp').val();
 serverPort = $("#serverPort").val();
-
 //////////////////////////////////////
 
 
 ////// Hide the bump bar and show error by default //////
-
 $("#hide").hide();
 $("#error").show();
-
 ////////////////////////////////////////////////////////
 
 
@@ -75,121 +71,125 @@ $('#settings').on('shown.bs.modal', function () {
 ////// Save Settings Button //////
 
 $("#saveSettings").click(function(){
-        $("#settings").modal('hide');
-		serverIp = $("#serverIp").val();
-		serverPort = $("#serverPort").val();
-		localStorage.setItem("serverIp", serverIp);
-		localStorage.setItem("serverPort", serverPort);
-		connect('ws://' + serverIp + ':' + serverPort);
-        });
-		
+   $("#settings").modal('hide');
+	serverIp = $("#serverIp").val();
+	serverPort = $("#serverPort").val();
+	localStorage.setItem("serverIp", serverIp);
+	localStorage.setItem("serverPort", serverPort);
+	connect('ws://' + serverIp + ':' + serverPort);
+});
+
 //////////////////////////////////
 
 
 
-if('WebSocket' in window){
+if('WebSocket' in window)
+{
   connect('ws://' + serverIp + ':' + serverPort);
 }
- 
-function connect(host) {
+
+function connect(host)
+{
   var ws = new WebSocket(host);
-  
-  try {
-  ws.onopen = function () {
-  $("#hide").show();
-  $("#error").hide();
-  };
-  
+
+  try
+  {
+     ws.onopen = function ()
+     {
+        $("#hide").show();
+        $("#error").hide();
+     };
  }
- 
- catch (e) {
-        console.error('Sorry, the web socket at "%s" is un-available', url);
-		}
- 
-  ws.onmessage = function (evt) {  
+
+catch (e)
+{
+   console.error('Sorry, the web socket at "%s" is un-available', url);
+}
+
+  ws.onmessage = function (evt) {
     alert('reveived data:'+evt.data);
   };
- 
+
   ws.onclose = function () {
   $("#hide").hide();
   $("#error").show();
-  
+
   console.log("trying again!")
   connect('ws://' + serverIp + ':' + serverPort);
   };
-  
+
   $("#btn1").click(function(){
        ws.send("kvs,1")
-        });  
-  
+        });
+
 		$("#btn2").click(function(){
         ws.send("kvs,2")
         });
-		
+
 		$("#btn3").click(function(){
         ws.send("kvs,3")
         });
-		
+
 		$("#btn4").click(function(){
         ws.send("kvs,4")
         });
-		
+
 		$("#btn5").click(function(){
         ws.send("kvs,5")
         });
-		
+
 		$("#btn6").click(function(){
         ws.send("kvs,6")
         });
-		
+
 		$("#btn7").click(function(){
         ws.send("kvs,7")
         });
-		
+
 		$("#btn8").click(function(){
         ws.send("kvs,8")
         });
-		
+
 		$("#btn9").click(function(){
         ws.send("kvs,9")
         });
-		
+
 		$("#btn0").click(function(){
         ws.send("kvs,10")
         });
-		
+
 		$("#btnBump").click(function(){
         ws.send("kvs,bump")
         });
-		
+
 		$("#btnRecall").click(function(){
         ws.send("kvs,recall")
         });
-		
+
 		$("#btnSum").click(function(){
         ws.send("kvs,sum")
         });
-		
+
 		$("#btnPage").click(function(){
         ws.send("kvs,page")
         });
-		
-		
+
+
 		$("#btnUp").click(function(){
         ws.send("kvs,up")
         });
-		
+
 		$("#btnDown").click(function(){
         ws.send("kvs,down")
         });
-		
+
 		$("#btnDone").click(function(){
         ws.send("kvs,sum")
         });
-		
-		
+
+
 		};
-		
+
 });
         /* ]]> */
 </script>
@@ -204,7 +204,7 @@ function connect(host) {
   background-color:#000;
 }
 
-    
+
 .row.no-gutter [class*='col-']:not(:first-child),.row.no-gutter [class*='col-']:not(:last-child) {
   padding-right:0;
   padding-left:0;
@@ -258,7 +258,7 @@ function connect(host) {
     <div class="col col-xs-3" id="divSum"><button type="button" class="btn btn-warning btn-block btn-lg" id="btnSum" style="height:100%; width:100%;">SUM</button></div>
 	<div class="col col-xs-3" id="divDone"><button type="button" class="btn btn-primary btn-block btn-lg" id="btnDone" style="height:100%; width:100%;">DONE</button></div>
 <!--    <div class="col col-xs-3"><button type="button" class="btn btn-danger btn-block btn-lg" id="btnPage" style="height:100%; width:100%;">PAGE</button></div> -->
-	
+
   </div>
 </div>
 </div>
@@ -280,7 +280,7 @@ Please make sure the client program is running on the KVS computer.</strong><br>
         <h4 class="modal-title" id="myModalLabel"><strong>Configuration Options</strong></h4>
       </div>
       <div class="modal-body">
-	  
+
 	  <div class="row row-xs-2 no-gutter">
 	  <div class="col col-xs-3" style="background: #fff"><input id="serverIp" type="text"><strong>Server Address</strong></input></div>
 	  </div>
@@ -288,9 +288,9 @@ Please make sure the client program is running on the KVS computer.</strong><br>
 	  <div class="row row-xs-2 no-gutter">
 	  <div class="col col-xs-3" style="background: #fff"><input id="serverPort" type="text"><strong>Server Port</strong></input></div>
 	  </div>
-	  
+
       </div>
-      
+
 	  <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" id="saveSettings">Save changes</button>
@@ -301,8 +301,3 @@ Please make sure the client program is running on the KVS computer.</strong><br>
 </div>
 </div>
 </body></html>
-
-
-
-
-
